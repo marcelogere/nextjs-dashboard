@@ -5,7 +5,6 @@ import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import postgres from 'postgres';
-import { AuthError } from 'next-auth';
 import { auth } from '@clerk/nextjs/server';;
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
@@ -128,7 +127,7 @@ export async function deleteInvoice(id: string) {
   }
 }
 
-export async function authenticate(prevState: any, formData: FormData) {
+export async function authenticate(prevState: unknown, formData: FormData) {
   const { userId } = await auth();
 
   // Si no hay usuario autenticado, redirigí al login de Clerk
